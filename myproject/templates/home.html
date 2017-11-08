@@ -1,40 +1,24 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Class room</title>
-  </head>
-  <body>
-    <h1>CSE327</h1>
+{% extends 'base.html' %}
 
-    <table border="1">
-      <thead>
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">CSE273</li>
+{% endblock %}
+
+{% block content %}
+  <table class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Lecture Name</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for lecture in lectures %}
         <tr>
-          <th>Lecture No.</th>
-          <th>Lecture Name</th>
-          <th>Date</th> 
+            <td class="align-middle" >{{ lecture.name }}</td>
+            <td class="align-middle" >{{ lecture.date }}</td>
         </tr>
-      </thead>
-      <tbody>
-        {% for lecture in lectures %}
-          <tr>
-
-            <td>
-              {{ lecture.lecture_no }}<br>              
-            </td>
-
-            <td>
-              {{ lecture.name }}<br>
-            </td>
-
-            <td>
-              {{ lecture.date }}<br>
-            </td>
-
-
-          </tr>
-        {% endfor %}
-       </tbody>
-    </table>
-  </body>
-</html> 
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
