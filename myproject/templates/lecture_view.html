@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">CSE273</li>
+  <li class="breadcrumb-item active"><a href ="{% url 'lecture_view' pk_lecture.pk %}" > {{pk_lecture.name}} </a></li>
+{% endblock %}
+
+{% block content %}
+
+<section>	  
+
+
+  <table class="table">
+    <thead class="thead-inverse">
+      <tr>
+        <th>Titale</th>
+        <th>Detail</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+        	<td  >
+		     	<strong>Lecture Name</strong>
+        	</td>
+
+            <td  >
+				<p>{{ pk_lecture.name }}</p>
+			</td>
+        </tr>
+
+
+        <tr>
+        	<td  >
+		     	<strong>Slid Link</strong>
+			</td>
+
+            <td   >
+				<a href="http://{{pk_lecture.link }}" target="_blank">Click Here </a>
+			</td>
+        </tr>
+
+
+        <tr>
+        	<td class="align-middle">
+	     	<strong>Description</strong>
+
+        	</td>
+
+            <td class="align-middle" >
+				<p>{{ pk_lecture.description }}</p>
+			</td>
+        </tr>
+
+
+    </tbody>
+  </table>
+
+
+
+
+{% endblock %}
