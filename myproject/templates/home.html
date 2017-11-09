@@ -15,7 +15,9 @@
     <tbody>
       {% for lecture in lectures %}
         <tr>
-            <td class="align-middle" >{{ lecture.name }}</td>
+            <td class="align-middle" >
+              <a href = "{% url 'lecture_view' lecture.pk %}" >{{ lecture.name }}
+            </td>
             <td class="align-middle" >{{ lecture.date }}</td>
         </tr>
       {% endfor %}
