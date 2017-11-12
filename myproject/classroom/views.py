@@ -30,6 +30,5 @@ def new_lecture(request):
         else:
             return render(request, 'new_lecture.html',{'lecture_name':"", 'lecture_description':"",'link':"",'lecture_no':"",'today': str(date.today()) } )     
             
-    print (date.today() )
  
     return render(request, 'new_lecture.html',{'lecture_name':"", 'lecture_description':"",'link':"",'lecture_no':"",'today':str(date.today()) } )     
