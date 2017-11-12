@@ -23,13 +23,13 @@ def new_lecture(request):
         lecture_no =request.POST['lecture_no']
         link =request.POST['link']
         lecture_description =request.POST['lecture_description']
-        date =request.POST['date']
-        print (date)
+        lecture_date =request.POST['date']
 
         if (lecture_name.count(' ')==len(lecture_name) or len(lecture_name)>10 or (lecture_no is None) or  link.count(' ')>0 or len(link)>20) :
-            return render(request, 'new_lecture.html',{'lecture_name':lecture_name, 'lecture_description':lecture_description,'link':link,'lecture_no':lecture_no,'today':date } ) 
+            return render(request, 'new_lecture.html',{'lecture_name':lecture_name, 'lecture_description':lecture_description,'link':link,'lecture_no':lecture_no,'today':lecture_date } ) 
         else:
-            return render(request, 'new_lecture.html',{'lecture_name':"", 'lecture_description':"",'link':"",'lecture_no':"",'today': date.today() } )     
+            return render(request, 'new_lecture.html',{'lecture_name':"", 'lecture_description':"",'link':"",'lecture_no':"",'today': str(date.today()) } )     
             
+    print (date.today() )
  
-    return render(request, 'new_lecture.html',{'lecture_name':"", 'lecture_description':"",'link':"",'lecture_no':"",'today':date.today() } )     
+    return render(request, 'new_lecture.html',{'lecture_name':"", 'lecture_description':"",'link':"",'lecture_no':"",'today':str(date.today()) } )     
