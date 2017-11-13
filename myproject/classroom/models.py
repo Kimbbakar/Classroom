@@ -4,11 +4,19 @@ from datetime import date
 
 # Create your models here.
 
+class course(models.Model):
+    course_id = models.CharField(max_length=10,  primary_key=True)
+    course_name = models.CharField(max_length=20)
+    facutly = models.CharField(max_length=10)
+    semester = models.CharField(max_length=10)
+ 
+
+
 class lecture(models.Model):
 #   course_id =  TODO
-
+	
+    course_id = models.ForeignKey(course, related_name='lectures', default= 'Admin' )
     name = models.CharField(max_length=30, unique=True)
-    lecture_no =  models.IntegerField ()
     link = models.CharField(max_length=20)
     description = models.CharField(max_length=400,null=True)
     date = models.DateField(default=date.today)
