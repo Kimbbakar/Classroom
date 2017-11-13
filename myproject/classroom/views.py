@@ -27,8 +27,17 @@ def new_lecture(request):
 
         if (lecture_name.count(' ')==len(lecture_name) or len(lecture_name)>10 or (lecture_no is None) or  link.count(' ')>0 or len(link)>20) :
             return render(request, 'new_lecture.html',{'lecture_name':lecture_name, 'lecture_description':lecture_description,'link':link,'lecture_no':lecture_no,'today':lecture_date } ) 
-        else:
-            return render(request, 'new_lecture.html',{'lecture_name':"", 'lecture_description':"",'link':"",'lecture_no':"",'today': str(date.today()) } )     
+        else: 
+
+            lec = lecture.objects.create(
+                name = lecture_name,
+                lecture_no = lecture_no,
+                link = link,
+                description = lecture_description,
+                date = lecture_date
+
+                )
             
+            return redirect('lecture_view',pk = lec.pk )
  
     return render(request, 'new_lecture.html',{'lecture_name':"", 'lecture_description':"",'link':"",'lecture_no':"",'today':str(date.today()) } )     
