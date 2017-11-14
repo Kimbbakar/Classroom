@@ -18,7 +18,7 @@ def course_view(request,pk):
 
 
 def lecture_view(request,pk):
-    pk_lecture = lecture.objects.get(pk=pk )
+    pk_lecture = lecture.objects.get(pk=pk ) 
  
     return render(request,'lecture_view.html',{'pk_lecture':pk_lecture } ) 
 
@@ -37,7 +37,7 @@ def new_lecture(request,pk):
         else: 
 
             lec = lecture.objects.create(
-                course_id = courseS,
+                course = courseS,
                 name = lecture_name, 
                 link = link,
                 description = lecture_description,
