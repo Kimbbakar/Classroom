@@ -7,13 +7,13 @@ from datetime import date
 class course(models.Model):
     course_id = models.CharField(max_length=10,  primary_key=True)
     course_name = models.CharField(max_length=20)
-    facutly = models.CharField(max_length=10)
+    faculty = models.CharField(max_length=10)
     semester = models.CharField(max_length=10)
  
 
 
 class lecture(models.Model): 	
-    course_id = models.ForeignKey(course, related_name='lectures', default= 'Admin' )
+    course = models.ForeignKey(course, related_name='lectures', default= 'Admin' )
     name = models.CharField(max_length=30, unique=True)
     link = models.CharField(max_length=20)
     description = models.CharField(max_length=400,null=True)

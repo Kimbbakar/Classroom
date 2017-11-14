@@ -2,7 +2,7 @@
 
 {% block breadcrumb %}
   <li class="breadcrumb-item active"><a href ="{% url 'home' %}" >Home</a> </li>
-  <li class="breadcrumb-item active"><a href ="{% url 'course_view' pk_lecture.course_id.course_id %}" >{{pk_lecture.course_id.course_id }}</a></li>
+  <li class="breadcrumb-item active"><a href ="{% url 'course_view' pk_lecture.course.pk %}" >{{pk_lecture.course.course_id }}</a></li>
   <li class="breadcrumb-item active"><a href ="{% url 'lecture_view' pk_lecture.pk %}" >{{pk_lecture.name}}</a></li>
 {% endblock %}
 

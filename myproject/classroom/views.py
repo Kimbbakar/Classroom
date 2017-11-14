@@ -19,8 +19,6 @@ def course_view(request,pk):
 
 def lecture_view(request,pk):
     pk_lecture = lecture.objects.get(pk=pk )
-
-    print (pk_lecture.course_id.course_id)
  
     return render(request,'lecture_view.html',{'pk_lecture':pk_lecture } ) 
 
