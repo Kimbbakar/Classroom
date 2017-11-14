@@ -20,6 +20,7 @@ from classroom import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home,name='home' ),
-    url(r'^lecture/new/$', views.new_lecture,name='new_lecture' ),
-    url(r'^lecture/(?P<pk>\d+)/$', views.lecture_view,name='lecture_view' ),
+    url(r'^course/(?P<pk>[.\w]+)/$', views.course_view,name='course_view' ),
+    url(r'^course/(?P<pk>[.\w]+)/new/$', views.new_lecture,name='new_lecture' ),
+    url(r'^course/lecture/(?P<pk>\d+)/$', views.lecture_view,name='lecture_view' ),
 ]

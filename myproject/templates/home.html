@@ -1,32 +1,31 @@
 {% extends 'base.html' %}
 
 {% block breadcrumb %}
-  <li class="breadcrumb-item active">CSE273</li>
+  <li class="breadcrumb-item active"><a href ="{% url 'home' %}" >Home</a> </li>
 {% endblock %}
 
 {% block content %}
 
-  <div class="mb-4">
-    <a href="{% url 'new_lecture'%}" class="btn btn-primary">New Lecture</a>
-  </div>
-
 
   <table class="table">
+
     <thead class="thead-inverse">
       <tr>
-        <th>Lecture Name</th>
-        <th>Date</th>
+        <th>Course ID</th>
+        <th>Faculty</th>
       </tr>
     </thead>
+
     <tbody>
-      {% for lecture in lectures %}
+      {% for course in courses %}
         <tr>
             <td class="align-middle" >
-              <a href = "{% url 'lecture_view' lecture.pk %}" >{{ lecture.name }}
+              <a href = "{% url 'course_view' course.pk %}" >{{ course.course_id }}</a>
             </td>
-            <td class="align-middle" >{{ lecture.date }}</td>
+            <td class="align-middle" >{{ course.facutly }}</td>
         </tr>
       {% endfor %}
     </tbody>
+
   </table>
 {% endblock %}

@@ -12,9 +12,7 @@ class course(models.Model):
  
 
 
-class lecture(models.Model):
-#   course_id =  TODO
-	
+class lecture(models.Model): 	
     course_id = models.ForeignKey(course, related_name='lectures', default= 'Admin' )
     name = models.CharField(max_length=30, unique=True)
     link = models.CharField(max_length=20)
