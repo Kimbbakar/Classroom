@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 {% block breadcrumb %}
   <li class="breadcrumb-item active"><a href ="{% url 'home' %}" >Home</a></li>
@@ -11,29 +12,36 @@
  <section>
 
    <form method="post">
-    {% csrf_token %}
-    <div class="form-group">
-      <label for="id_name">Name</label>
-      <input type="text" class="form-control" id="id_name" name="lecture_name" value={{ lecture_name }}>
-    </div>
+    {% csrf_token %} 
+    {% for field in form %}
+        <div class="form-group">
+          {{ field.label_tag }}
 
-    <div class="form-group">
-      <label for="id_linkr">Slid Link</label>
-      <input type="text" class="form-control" id="id_link" name="link" value={{ link }}>
-    </div>
+          {% if form.is_bound %}
+            {% if field.errors %}
 
+              {% render_field field class="form-control is-invalid" %}
+              {% for error in field.errors %}
+                <div class="invalid-feedback">
+                  {{ error }}
+                </div>
+              {% endfor %}
 
-    <div class="form-group">
-      <label for="id_description">Description</label>
-      <textarea class="form-control" id="id_description" name="lecture_description" rows="5">{{lecture_description}} </textarea>
-    </div>
+            {% else %}
+              {% render_field field class="form-control is-valid" %}
+            {% endif %}
+          {% else %}
+            {% render_field field class="form-control" %}
+          {% endif %}
 
-    <div class="form-group">
-      <label for="id_date">Lecture Date</label>
-      <input type="date" class="form-control" id="id_date" name="date" value = {{today}} >
-    </div>
-
-
+          {% if field.help_text %}
+            <small class="form-text text-muted">
+              {{ field.help_text }}
+            </small>
+          {% endif %}
+        </div>
+      {% endfor %}
+   
     <button type="submit" class="btn btn-success">Post</button>
   </form>
 
