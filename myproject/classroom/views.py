@@ -34,5 +34,6 @@ def new_lecture(request,pk):
             lec.course = courseS
             lec.save() 
             return redirect('lecture_view',pk = lec.pk )
-
+        else: 
+            return render(request, 'new_lecture.html',{'pk_course':courseS,'form':form } ) 
     return render(request, 'new_lecture.html',{'pk_course':courseS,'form':NewLectureForm() } )     

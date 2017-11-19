@@ -28,3 +28,10 @@ class NewLectureForm(forms.ModelForm):
     class Meta:
         model = lecture 
         fields = ['name','link','description','date' ]
+
+    def clean_link(self):
+        data = self.cleaned_data['link']
+        if (' ' in data) or data.count('.')!=2 :
+            raise forms.ValidationError("link is invalid")
+
+        return data
