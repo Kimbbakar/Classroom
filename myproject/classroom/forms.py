@@ -16,22 +16,9 @@ class NewLectureForm(forms.ModelForm):
 
 
     date = date = forms.DateField(initial=date.today(),widget=forms.SelectDateWidget() )
-    link = forms.CharField(
-        label = 'Slid link', 
-        widget=forms.Textarea(
-            attrs={'rows': 1, 'placeholder': 'e.g. www.slideshare.com/abc'}
-        ),
-        max_length=30
-
-    )
+    link = forms.URLField(initial='http://',label='Slid Link')
 
     class Meta:
         model = lecture 
         fields = ['name','link','description','date' ]
-
-    def clean_link(self):
-        data = self.cleaned_data['link']
-        if (' ' in data) or data.count('.')!=2 :
-            raise forms.ValidationError("link is invalid")
-
-        return data
+ 
