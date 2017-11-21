@@ -30,3 +30,16 @@ class SignUpForm(UserCreationForm):
                     raise forms.ValidationError("ID only contain digits (0-9).")                            
 
         return data
+
+class LogInForm(forms.Form):
+    username = forms.CharField(label = 'ID', required=True)    
+    password = forms.CharField(widget=forms.PasswordInput)   
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+
+        if User.objects.filter(username=username).exists()==False:
+            raise forms.ValidationError("This ID does not exists!") 
+
+        return username
+ 

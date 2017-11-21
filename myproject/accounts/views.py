@@ -1,5 +1,8 @@
-from django.shortcuts import render
-from .forms import SignUpForm
+from django.shortcuts import render,redirect 
+from .forms import SignUpForm,LogInForm
+from classroom.models import user_type 
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import authenticate 
 
 # Create your views here.
 
@@ -9,8 +12,31 @@ def signup(request):
         form = SignUpForm(request.POST)
 
         if form.is_valid():
-            return render(request, 'signup.html', {'form': form})            
-
+            user = form.save(commit = False)
+            user.save()
+            user_type.objects.create(user = user, role = form['type'].value() )
+            auth_login(request, user)
+            return redirect('home')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+ 
+def login(request):
+    
+    Warning = False
+
+    if request.method=='POST':
+        form = LogInForm(request.POST)
+
+        if form.is_valid():            
+            user = authenticate(request, username=form['username'].value(), password=form['password'].value() )
+            if user is not None:
+                auth_login(request,user)
+                return redirect('home')
+            else:
+                Warning = True 
+    else: 
+        form = LogInForm()
+
+    return render(request,'login.html',{'form':form , 'Warning':Warning } )
