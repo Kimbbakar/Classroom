@@ -7,8 +7,8 @@ from datetime import date
 class course(models.Model):
     course_id = models.CharField(max_length=10,  primary_key=True)
     course_name = models.CharField(max_length=30)
-    faculty = models.CharField(max_length=10)
-    semester = models.ForeignKey(User, related_name='faculty', default= 'Admin' )
+    faculty = models.ForeignKey(User, related_name='courses', default= 'Admin' )
+    semester = models.CharField(max_length=10)
 
 
 class user_type(models.Model):
