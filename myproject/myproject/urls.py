@@ -16,12 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from classroom import views
+from django.contrib.auth import views as auth_views
 from accounts import views as accouts_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home,name='home' ),
     url(r'^signup/$', accouts_views.signup,name='signup' ),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^course/(?P<pk>[.\w]+)/$', views.course_view,name='course_view' ),
     url(r'^course/(?P<pk>[.\w]+)/new/$', views.new_lecture,name='new_lecture' ),
     url(r'^course/lecture/(?P<pk>\d+)/$', views.lecture_view,name='lecture_view' ),
