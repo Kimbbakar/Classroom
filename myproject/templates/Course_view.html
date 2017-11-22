@@ -12,16 +12,11 @@
   </div>
 
 
-<section>
-  
-  <p><strong>Course Name: </strong> {{ pk_course.course_name }}</p>
-
-
-  
-  <p><strong>Faculty: </strong> {{ pk_course.faculty.get_full_name }}</p>
-
-</section>
-
+  <ul>
+    <li><p><strong>Course Name: </strong> {{ pk_course.course_name }}</p></li>
+    <li><p><strong>Faculty: </strong> {{ pk_course.faculty.get_full_name }}</p></li>
+    <li><p><strong>Semester: </strong> {{ pk_course.semester }}</p></li>
+  </ul>
 
 <section>	  
 
@@ -31,6 +26,7 @@
       <tr>
         <th>Title</th>
         <th>Date</th>
+        <th>Slid Link</th>
       </tr>
     </thead>
     <tbody>
@@ -42,10 +38,10 @@
               <a href = "{% url 'lecture_view' lecture.pk %}" >{{ lecture.name }}
             </td>
             <td class="align-middle" >{{ lecture.date }}</td>
+            <td> <a href="{{lecture.link }}" target="_blank">Click Here </a> </td>
         </tr>
       {% endfor %}
-
-
+ 
 
     </tbody>
   </table>

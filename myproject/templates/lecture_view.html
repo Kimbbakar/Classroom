@@ -9,51 +9,34 @@
 {% block content %}
 
 <section>	  
-
-
   <table class="table">
+
     <thead class="thead-inverse">
       <tr>
         <th>Title</th>
         <th>Detail</th>
       </tr>
     </thead>
+
     <tbody>
         <tr>
-        	<td  >
-		     	<strong>Lecture Name</strong>
-        	</td>
-
-            <td  >
-				<p>{{ pk_lecture.name }}</p>
-			</td>
+        	<td  > <strong>Lecture Name</strong> </td>
+          <td > <p>{{ pk_lecture.name }}</p> </td>
         </tr>
 
 
         <tr>
-        	<td  >
-		     	<strong>Slid Link</strong>
-			</td>
-
-            <td   >
-				<a href="http://{{pk_lecture.link }}" target="_blank">Click Here </a>
-			</td>
+        	<td> <strong>Slid Link</strong> </td>
+          <td> <a href="{{pk_lecture.link }}" target="_blank">Click Here </a> </td>
         </tr>
 
 
         <tr>
-        	<td class="align-middle">
-	     	<strong>Description</strong>
-
-        	</td>
-
-            <td class="align-middle" >
-				<p>{{ pk_lecture.description }}</p>
-			</td>
+        	<td class="align-middle"> <strong>Description</strong> </td>
+          <td class="align-middle" > <p>{{ pk_lecture.description }}</p> </td>
         </tr>
-
-
     </tbody>
+
   </table>
 
 
