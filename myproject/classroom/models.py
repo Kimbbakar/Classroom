@@ -12,7 +12,7 @@ class course(models.Model):
 
 
 class user_type(models.Model):
-    user = models.ForeignKey(User,related_name = 'type' )
+    user =models.OneToOneField(User,related_name = 'type',on_delete=models.CASCADE,primary_key=True)
     role = models.IntegerField()
 
 class registration(models.Model):
