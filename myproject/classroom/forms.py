@@ -1,9 +1,8 @@
 from django import forms
 
-from .models import lecture
+from .models import lecture,course
 from datetime import date
 
-BIRTH_YEAR_CHOICES = ('1980', '1981', '1982')
 class NewLectureForm(forms.ModelForm):
 
     name = forms.CharField(label = 'Lecture Name',max_length=20)
@@ -21,4 +20,15 @@ class NewLectureForm(forms.ModelForm):
     class Meta:
         model = lecture 
         fields = ['name','link','description','date' ]
- 
+
+SEMESTER = [('Fall','Fall'),('Summer','Summer'),('Spring','Spring')]
+
+
+class NewCourseForm(forms.ModelForm):
+    course_id = forms.CharField(max_length=10,help_text='Section number should be mentioned. e.g. EEE123.1')
+    course_name = forms.CharField(max_length=30)    
+    semester = forms.ChoiceField(choices=SEMESTER) 
+
+    class Meta:
+        model = course
+        fields = ['course_id','course_name','semester']

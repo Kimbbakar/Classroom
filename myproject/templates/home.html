@@ -7,6 +7,14 @@
 {% block content %}
 
 
+    {% if user.type.role == 1 %}
+      <div class="mb-4">
+        <a href="{% url 'new_course' %}" class="btn btn-primary">New Course</a>
+      </div>
+    {% endif %}
+
+
+
   <table class="table">
 
     <thead class="thead-inverse">

@@ -3,11 +3,11 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import lecture,course
 from datetime import date
-from .forms import NewLectureForm
+from .forms import NewLectureForm,NewCourseForm
  
 def home(request):
-    courses = course.objects.all()
-
+    user = request.user
+    courses = user.courses.all() 
     return render(request,'home.html',{'courses':courses } ) 
 
 def course_view(request,pk):
@@ -37,3 +37,20 @@ def new_lecture(request,pk):
         else: 
             return render(request, 'new_lecture.html',{'pk_course':courseS,'form':form } ) 
     return render(request, 'new_lecture.html',{'pk_course':courseS,'form':NewLectureForm() } )     
+
+
+def new_course(request):
+
+    if request.method == 'POST':
+
+        form = NewCourseForm(request.POST)
+
+        if form.is_valid():
+            sub = form.save(commit=False) 
+            sub.faculty = request.user
+            sub.semester = sub.semester + ' ' + str(date.today().year)
+            sub.save() 
+            return redirect('course_view',pk = sub.pk )
+    else: 
+        form = NewCourseForm()
+    return render(request, 'new_course.html',{'form':form } )   

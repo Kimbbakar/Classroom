@@ -22,7 +22,8 @@ from accounts import views as accouts_views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', accouts_views.signup,name='signup' ),
-    url(r'^/home$', views.home,name='home' ),
+    url(r'^home/$', views.home,name='home' ),
+    url(r'^home/new/$', views.new_course,name='new_course' ),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^login/$', accouts_views.login, name='login'),
     url(r'^course/(?P<pk>[.\w]+)/$', views.course_view,name='course_view' ),
