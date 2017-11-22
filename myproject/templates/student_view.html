@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active"><a href ="{% url 'home' %}" >Home</a></li>
+  <li class="breadcrumb-item active"><a href ="{% url 'course_view' pk_course.pk %}" >{{pk_course.course_id}}</a></li>
+  <li class="breadcrumb-item active"><a href ="{% url 'student_view' pk_course.pk %}" >Enrolled Student</a></li>
+{% endblock %}
+
+{% block content %}
+<section>   
+  <table class="table">
+
+    <thead class="thead-inverse">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for student in pk_course.registration.all  %}
+        <tr>
+            <td class="align-middle" > {{ student.user.username }} </td>
+            <td class="align-middle" >{{ student.user.get_full_name }}</td>
+  
+        </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+
+</section>
+
+{% endblock %}

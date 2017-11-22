@@ -54,3 +54,8 @@ def new_course(request):
     else: 
         form = NewCourseForm()
     return render(request, 'new_course.html',{'form':form } )   
+
+def student_view(request,pk):
+    pk_course = course.objects.get(pk=pk ) 
+ 
+    return render(request,'student_view.html',{'pk_course':pk_course } ) 

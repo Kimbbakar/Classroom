@@ -32,3 +32,30 @@ class NewCourseForm(forms.ModelForm):
     class Meta:
         model = course
         fields = ['course_id','course_name','semester']
+
+class StudentAddForm(forms.Form):
+    course_id = forms.CharField(max_length=10,help_text='Section number should be mentioned. e.g. EEE123.1')
+    student_id = forms.CharField(max_length=10,help_text='ID should be valid and separated by semicolon(;).' )
+
+    def clean_course_id(self):
+        data = self.clean_course_id['course_id']
+
+        if course.objects.filter(username=i).exists() is None:
+            raise forms.ValidationError('Invalid Course ID')
+
+        return data
+
+    def clean_student_id(self):
+        data = self.clean_course_id['student_id']
+        student_id = map(str,data.split(';') )
+
+        invalid = list()
+
+        for i in student_id:
+            if User.objects.filter(username=i).exists() is None:
+                invalid.append(i)
+
+        if len(invalid)!=0:
+            raise forms.ValidationError('Invalid id: ' + invalid )
+
+        return data
