@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import lecture,course
+from .models import lecture,course,registration
 from datetime import date
-from .forms import NewLectureForm,NewCourseForm
+from .forms import NewLectureForm,NewCourseForm,StudentAddForm
  
 def home(request):
     user = request.user
@@ -59,3 +59,20 @@ def student_view(request,pk):
     pk_course = course.objects.get(pk=pk ) 
  
     return render(request,'student_view.html',{'pk_course':pk_course } ) 
+
+def add_student(request,pk):
+ 
+    pk_course = course.objects.get(pk=pk )  
+    if request.method == 'POST':
+        form = StudentAddForm(request.POST)
+
+        if form.is_valid():
+            student = (form['student_id'].value())
+            student = map(str,student.split(';') )
+
+            for i in student:
+                registration.objects.create(course=pk_course,user = User.objects.get(username=i) ) 
+            return redirect('student_view',pk=pk_course.pk )
+    else: 
+        form = StudentAddForm()
+    return render(request, 'add_student.html',{'pk_course':pk_course, 'form':form } )  

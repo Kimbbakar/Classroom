@@ -29,6 +29,6 @@ urlpatterns = [
     url(r'^course/(?P<pk>[.\w]+)/$', views.course_view,name='course_view' ),
     url(r'^course/(?P<pk>[.\w]+)/new/$', views.new_lecture,name='new_lecture' ),
     url(r'^course/student/(?P<pk>[.\w]+)/$', views.student_view,name='student_view' ),
-#    url(r'^course/student/(?P<pk>[.\w]+)/add_student/$', views.student,name='add_student' ),
+    url(r'^course/student/add_student/(?P<pk>[.\w]+)/$', views.add_student,name='add_student' ),
     url(r'^course/lecture/(?P<pk>\d+)/$', views.lecture_view,name='lecture_view' ),
 ]
