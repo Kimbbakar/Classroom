@@ -14,7 +14,7 @@ class NewLectureForm(forms.ModelForm):
     )
 
 
-    date = date = forms.DateField(initial=date.today(),widget=forms.SelectDateWidget() )
+    date = forms.DateField(initial=date.today(),widget=forms.SelectDateWidget() )
     link = forms.URLField(initial='http://',label='Slid Link')
 
     class Meta:
