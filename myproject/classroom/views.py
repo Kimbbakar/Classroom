@@ -4,26 +4,32 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import lecture,course,registration
 from datetime import date
 from .forms import NewLectureForm,NewCourseForm,StudentAddForm
+from django.contrib.auth.decorators import login_required
+
+
  
 def welcome(request):
     return render(request,'welcome.html')
 
+@login_required(login_url='/')
 def home(request):
     user = request.user
     courses = user.registration.all()
     return render(request,'home.html',{'courses':courses } ) 
 
+@login_required(login_url='/')
 def course_view(request,pk):
     pk_course =get_object_or_404(course,pk=pk )
  
     return render(request,'course_view.html',{'pk_course':pk_course } ) 
 
-
+@login_required(login_url='/')
 def lecture_view(request,pk):
     pk_lecture = lecture.objects.get(pk=pk ) 
  
     return render(request,'lecture_view.html',{'pk_lecture':pk_lecture } ) 
 
+@login_required(login_url='/')
 def new_lecture(request,pk):
 
     courseS = course.objects.get(pk = pk)
@@ -41,7 +47,7 @@ def new_lecture(request,pk):
             return render(request, 'new_lecture.html',{'pk_course':courseS,'form':form } ) 
     return render(request, 'new_lecture.html',{'pk_course':courseS,'form':NewLectureForm() } )     
 
-
+@login_required(login_url='/')
 def new_course(request):
 
     if request.method == 'POST':
@@ -59,11 +65,13 @@ def new_course(request):
         form = NewCourseForm()
     return render(request, 'new_course.html',{'form':form } )   
 
+@login_required(login_url='/')
 def student_view(request,pk):
     pk_course = course.objects.get(pk=pk ) 
  
     return render(request,'student_view.html',{'pk_course':pk_course } ) 
 
+@login_required(login_url='/')
 def add_student(request,pk):
  
     pk_course = course.objects.get(pk=pk )  
