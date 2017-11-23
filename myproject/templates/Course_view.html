@@ -7,11 +7,13 @@
 
 {% block content %}
  
+  {%if user.type.role  == 1 %}
 
   <div class="mb-4">
     <a href="{% url 'new_lecture' pk_course.pk %}" class="btn btn-primary">New Lecture</a>
-    <a href="{% url 'student_view' pk_course.pk %}" class="btn btn-primary">Enrolled Student</a>
+      <a href="{% url 'student_view' pk_course.pk %}" class="btn btn-primary">Enrolled Student</a>
   </div>
+  {% endif %}
 
 
   <ul>
