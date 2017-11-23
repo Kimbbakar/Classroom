@@ -11,8 +11,7 @@
 
   <div class="mb-4">
     <a href="{% url 'add_student' pk_course.pk %}" class="btn btn-primary">Add Student</a>
-  </div>
-
+  </div> 
 <section>   
   <table class="table">
 
@@ -25,11 +24,14 @@
 
     <tbody>
       {% for student in pk_course.registration.all  %}
-        <tr>
-            <td class="align-middle" > {{ student.user.username }} </td>
-            <td class="align-middle" >{{ student.user.get_full_name }}</td>
-  
-        </tr>
+        {%if student.user.type.role  == 0 %}
+
+          <tr>
+              <td class="align-middle" > {{ student.user.username }} </td>
+              <td class="align-middle" >{{ student.user.get_full_name }}</td>
+    
+          </tr>
+        {% endif %}
       {% endfor %}
     </tbody>
 

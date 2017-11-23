@@ -7,11 +7,11 @@ from .forms import NewLectureForm,NewCourseForm,StudentAddForm
  
 def home(request):
     user = request.user
-    courses = user.courses.all() 
+    courses = user.registration.all()
     return render(request,'home.html',{'courses':courses } ) 
 
 def course_view(request,pk):
-    pk_course = course.objects.get(pk=pk )
+    pk_course =get_object_or_404(course,pk=pk )
  
     return render(request,'course_view.html',{'pk_course':pk_course } ) 
 
@@ -50,6 +50,7 @@ def new_course(request):
             sub.faculty = request.user
             sub.semester = sub.semester + ' ' + str(date.today().year)
             sub.save() 
+            registration.objects.create(user=request.user,course = sub)
             return redirect('course_view',pk = sub.pk )
     else: 
         form = NewCourseForm()
@@ -66,12 +67,14 @@ def add_student(request,pk):
     if request.method == 'POST':
         form = StudentAddForm(request.POST)
 
-        if form.is_valid():
+        if form.is_valid(): 
+
             student = (form['student_id'].value())
-            student = map(str,student.split(';') )
+            student = map(str,student.strip().split(';') )
 
             for i in student:
-                registration.objects.create(course=pk_course,user = User.objects.get(username=i) ) 
+                if len(i)!=0:
+                    registration.objects.create(course=pk_course,user = User.objects.get(username=i) ) 
             return redirect('student_view',pk=pk_course.pk )
     else: 
         form = StudentAddForm()

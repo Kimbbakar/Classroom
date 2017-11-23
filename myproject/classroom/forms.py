@@ -43,18 +43,22 @@ class StudentAddForm(forms.Form):
   
 
     def clean_student_id(self):
-        data = self.cleaned_data['student_id']
-        student  = map(str,data.split(';') )
+        data = self.cleaned_data['student_id'] 
+
+
+        student  = list(map(str,data.strip().split(';') ))
+
+
 
         invalid = list()
-  
         for i in student: 
-            if User.objects.filter(username=i).exists() is False:
-                print (i)
-                invalid.append(i)
+            if len(i)!=0:
+                if User.objects.filter(username=i).exists() == False :
+                    invalid.append(i)
 
         if len(invalid)!=0: 
-            warning = "'Invalid id: '"
+ 
+            warning = "Invalid id: "
             for i in invalid:
                 warning+=(i + ';')
             raise forms.ValidationError(warning )

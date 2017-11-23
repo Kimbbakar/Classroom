@@ -25,14 +25,15 @@
     </thead>
 
     <tbody>
-      {% for course in courses %}
-        <tr>
-            <td class="align-middle" >
-              <a href = "{% url 'course_view' course.pk %}" >{{ course.course_id }}</a>
-            </td>
-            <td class="align-middle" >{{ course.faculty.get_full_name}}</td>
-        </tr>
-      {% endfor %}
+        {% for course in courses %}
+          <tr>
+              <td class="align-middle" >
+                <a href = "{% url 'course_view' course.course.pk %}" >{{ course.course.course_id }}</a>
+              </td>
+              <td class="align-middle" >{{ course.user.get_full_name}}</td>
+          </tr>
+        {% endfor %} 
+
     </tbody>
 
   </table>
