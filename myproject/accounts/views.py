@@ -24,7 +24,7 @@ def signup(request):
  
 def login(request):
     
-    Warning = False
+    Warning = 0
 
     if request.method=='POST':
         form = LogInForm(request.POST)
@@ -35,7 +35,9 @@ def login(request):
                 auth_login(request,user)
                 return redirect('home')
             else:
-                Warning = True 
+                Warning = 1
+        else: 
+            Warning = 2 
     else: 
         form = LogInForm()
 

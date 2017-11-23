@@ -63,10 +63,15 @@
 			</div>
 
 	    {% endfor %}
-	    {% if Warning == True%}
+	    {% if Warning != 0%}
 			<div class="alert">
 				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-				<strong>Warning!</strong> Id and Password does not match.
+			    {% if Warning == 1%}
+					<strong>Warning!</strong> Id and Password does not match.
+				{% else %}
+					<strong>Warning!</strong> This ID does not exists!.
+				{% endif %}
+
 			</div>
 		{% endif %}
 
