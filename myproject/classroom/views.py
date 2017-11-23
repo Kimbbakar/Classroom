@@ -5,6 +5,9 @@ from .models import lecture,course,registration
 from datetime import date
 from .forms import NewLectureForm,NewCourseForm,StudentAddForm
  
+def welcome(request):
+    return render(request,'welcome.html')
+
 def home(request):
     user = request.user
     courses = user.registration.all()
