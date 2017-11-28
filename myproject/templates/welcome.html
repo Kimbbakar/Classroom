@@ -1,40 +1,21 @@
-{% load static %}<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>{% block title %}Welcome{% endblock %}</title>
-    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/app.css' %}">
-    {% block stylesheet %}
-
-    <style  >
-body {
-    margin: 0;
-    padding: 0;
-    text-align: center; /* !!! */
-}
-
-.centered {
-    margin: auto auto;
-    text-align: auto;
-    width: 800px;
-}
-    </style>
-    {% endblock %}
-
-  </head>
-  <body>
+{% extends 'base.html' %}
+ 
+{% block title %}Welcome{% endblock %} 
+ 
+ 
   {% block body %} 
-   		<div class = "centered">
-   			<h1>Welcome to Classroom</h1> 
-		    <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
-		    <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
-   		</div> 
+   		<div class = "centered middle">
+          <h1 class="text-center logo my-4"> <a href="{% url 'welcome' %}"> Welcome to Classroom</a> </h1> 
+          <div class = "text-center"> 
+
+  		    <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+
+  		    <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+          </div>
+      </div>   
+
 
 	{% endblock body %} 
-
-  </body>
-</html>
+ 
 
 
