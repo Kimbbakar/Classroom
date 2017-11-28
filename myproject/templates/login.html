@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 
-{% block stylesheet %}
+ 
+{% block warning%}
+
 <style>
 .alert {
     padding: 20px;
@@ -25,60 +27,74 @@
 }
 </style>
 
-{% endblock %}
+{% endblock warning %}
 
 {% block body %}
 	<div class="container">
-	  <h2> Log In </h2>
-		{% block content %}
-	    <form method="post" novalidate>
+	    <h1 class="text-center logo my-4">
+	      <a href="{% url 'home' %}">ClassRoom</a>
+	    </h1>
+	    <div class="row justify-content-center">
+	      <div class="col-lg-8 col-md-10 col-sm-12">
+	        <div class="card">
+	          <div class="card-body">
+	            <h3 class="card-title">Sign up</h3>
+	            <form method="post" novalidate>
+	              {% csrf_token %}
+					{% for field in form %}
+							<div class = "form-group">
+								{{field.label_tag}}
 
-	      {% csrf_token %}  
+								{% if form.is_bound %}
+						            {% if field.errors %}
+					    	            {% render_field field class="form-control" %}
+					  					{% for error in field.errors %}
+							                <div class="invalid-feedback">
+							                  {{ error }}
+							                </div>			
+							            {% endfor %}	
+									{% else %}
+						    	        {% render_field field class="form-control" %}
+									{% endif %}
+						
 
-	    {% for field in form %}
-			<div class = "form-group">
-				{{field.label_tag}}
+								{% else %}
+					    	        {% render_field field class="form-control" %}
+								{% endif %}
+							    {% if field.help_text %}
+							      <small class="form-text text-muted">
+							        {{ field.help_text|safe }}  <!-- new code here -->
+							      </small>
+							    {% endif %}
+							</div>
 
-				{% if form.is_bound %}
-		            {% if field.errors %}
-	    	            {% render_field field class="form-control " %}
-	  					{% for error in field.errors %}
-			                <div class="invalid-feedback">
-			                  {{ error }}
-			                </div>			
-			            {% endfor %}	
-					{% else %}
-		    	        {% render_field field class="form-control" %}
+					    {% endfor %}
+			    {% if Warning != 0%}
+						<div class="alert">
+							<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+						    {% if Warning == 1%}
+								<strong>Warning!</strong> Id and Password does not match.
+							{% else %}
+								<strong>Warning!</strong> This ID does not exists!.
+							{% endif %}
+
+						</div>
 					{% endif %}
-		
+	              <button type="submit" class="btn btn-primary btn-block">Log In</button>
+	            </form>
+	          </div>
 
-				{% else %}
-	    	        {% render_field field class="form-control" %}
-				{% endif %}
-			    {% if field.help_text %}
-			      <small class="form-text text-muted">
-			        {{ field.help_text|safe }}  <!-- new code here -->
-			      </small>
-			    {% endif %}
-			</div>
+	
 
-	    {% endfor %}
-	    {% if Warning != 0%}
-			<div class="alert">
-				<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-			    {% if Warning == 1%}
-					<strong>Warning!</strong> Id and Password does not match.
-				{% else %}
-					<strong>Warning!</strong> This ID does not exists!.
-				{% endif %}
-
-			</div>
-		{% endif %}
-
-        <button type="submit" class="btn btn-primary">Log In</button>
-    </form>
-
-	{% endblock %}
+	          <div class="card-footer text-muted text-center">
+	            Don't have an account? <a href="{% url 'signup' %}">Sign Up</a>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
 	</div>
 {% endblock body%}
+
+
+
 
