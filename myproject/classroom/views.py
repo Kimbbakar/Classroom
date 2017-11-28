@@ -9,6 +9,9 @@ from django.contrib.auth.decorators import login_required
 
  
 def welcome(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+        
     return render(request,'welcome.html')
 
 @login_required(login_url='/')

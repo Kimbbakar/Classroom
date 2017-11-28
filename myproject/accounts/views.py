@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate
 # Create your views here.
 
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect('home')
 
     if request.method =='POST':
         form = SignUpForm(request.POST)
@@ -23,6 +25,8 @@ def signup(request):
 
  
 def login(request):
+    if request.user.is_authenticated:
+        return redirect('home')
     
     Warning = 0
 
