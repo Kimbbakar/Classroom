@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
+from datetime import datetime 
 
 # Create your models here.
 
@@ -25,3 +26,9 @@ class lecture(models.Model):
     link = models.CharField(max_length=30)
     description = models.CharField(max_length=400,null=True)
     date = models.DateField(default=date.today)
+
+class post(models.Model):
+    user = models.ForeignKey(User,related_name = 'posts' )
+    lecture = models.ForeignKey(lecture,related_name = 'posts' )
+    comment = models.CharField(max_length=100)
+    date = models.DateField(default=date.today) 
