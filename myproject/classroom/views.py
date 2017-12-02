@@ -7,6 +7,9 @@ from .forms import NewLectureForm,NewCourseForm,StudentAddForm,PostCommentForm
 from django.contrib.auth.decorators import login_required
 
 
+def isok(request,role):
+    return request.user.type.role==role
+
  
 def welcome(request):
     if request.user.is_authenticated:
@@ -51,6 +54,9 @@ def lecture_view(request,pk):
 @login_required(login_url='/')
 def new_lecture(request,pk):
 
+    if isok(request,0):
+        return redirect('home')
+
     courseS = course.objects.get(pk = pk)
 
     if request.method == 'POST':
@@ -69,6 +75,10 @@ def new_lecture(request,pk):
 @login_required(login_url='/')
 def new_course(request):
 
+    if isok(request,0):
+        return redirect('home')
+
+
     if request.method == 'POST':
 
         form = NewCourseForm(request.POST)
@@ -86,12 +96,18 @@ def new_course(request):
 
 @login_required(login_url='/')
 def student_view(request,pk):
+    if isok(request,0):
+        return redirect('home')
+
     pk_course = course.objects.get(pk=pk ) 
  
     return render(request,'student_view.html',{'pk_course':pk_course } ) 
 
 @login_required(login_url='/')
 def add_student(request,pk):
+
+    if isok(request,0):
+        return redirect('home')
  
     pk_course = course.objects.get(pk=pk )  
     if request.method == 'POST':
