@@ -45,16 +45,31 @@
 
 
   {% for post in posts%}
-    <div>
-<p>
-    {% if post.user.type.role == 1 %}
-      <a href = "#"> <strong> Faculty:</strong> </a>
-    {% else %}
-      <a href = "#"> <strong> {{post.user.first_name }}: </strong> </a>
-    {% endif %}
-      {{post.comment}}</p>
+
+  <div class="card mb-2">
+
+
+    <div class="card-body p-3"> 
+
+    <div class="text-muted"> 
+
+      <a href = "#"> <strong>  
+        {% if post.user.type.role == 1 %}
+            Faculty 
+        {% else %} 
+            {{post.user.first_name}} 
+        {% endif %}
+      </strong> </a>
+ 
 
     </div>
+    <div>
+      {{post.comment}}
+    </div>
+
+    </div>
+
+  </div>
 
   {% endfor %}
 
@@ -91,7 +106,7 @@
         </div>
       {% endfor %}
    
-    <button type="submit" class="btn btn-success">Post</button>
+    <button type="submit" class="btn btn-success">Reply</button>
   </form>
 
 
