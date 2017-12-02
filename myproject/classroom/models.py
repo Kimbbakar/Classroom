@@ -31,4 +31,4 @@ class post(models.Model):
     user = models.ForeignKey(User,related_name = 'posts' )
     lecture = models.ForeignKey(lecture,related_name = 'posts' )
     comment = models.CharField(max_length=100)
-    date = models.DateField(default=date.today) 
+    date = models.DateField(default=date.today)  
