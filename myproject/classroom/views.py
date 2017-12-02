@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import lecture,course,registration
+from .models import lecture,course,registration,post
 from datetime import date
-from .forms import NewLectureForm,NewCourseForm,StudentAddForm
+from .forms import NewLectureForm,NewCourseForm,StudentAddForm,PostCommentForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -29,8 +29,24 @@ def course_view(request,pk):
 @login_required(login_url='/')
 def lecture_view(request,pk):
     pk_lecture = lecture.objects.get(pk=pk ) 
+    posts = pk_lecture.posts.all()
  
-    return render(request,'lecture_view.html',{'pk_lecture':pk_lecture } ) 
+
+    if request.method == 'POST':
+        form = PostCommentForm(request.POST)
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.lecture = pk_lecture
+
+            post.save()
+            form = PostCommentForm()
+
+    else: 
+        form = PostCommentForm()
+ 
+    return render(request,'lecture_view.html',{'pk_lecture':pk_lecture ,'form':form,'posts':posts } ) 
 
 @login_required(login_url='/')
 def new_lecture(request,pk):

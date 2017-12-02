@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import lecture,course
+from .models import lecture,course,post
 from datetime import date
 
 class NewLectureForm(forms.ModelForm):
@@ -64,3 +64,15 @@ class StudentAddForm(forms.Form):
             raise forms.ValidationError(warning )
 
         return data
+
+class PostCommentForm(forms.ModelForm):
+    comment = forms.CharField(widget=forms.Textarea(
+            attrs={'rows': 2}
+        ),
+        max_length=100,
+        help_text='The max length of the text is 100.'
+    )
+
+    class Meta:
+        model = post
+        fields = ['comment']
