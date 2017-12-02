@@ -110,6 +110,7 @@ def add_student(request,pk):
         return redirect('home')
  
     pk_course = course.objects.get(pk=pk )  
+    students = pk_course.registration.all()
     if request.method == 'POST':
         form = StudentAddForm(request.POST)
 
@@ -119,8 +120,13 @@ def add_student(request,pk):
             student = map(str,student.strip().split(';') )
 
             for i in student:
-                if len(i)!=0:
-                    registration.objects.create(course=pk_course,user = User.objects.get(username=i) ) 
+                if len(i)==0:
+                    continue
+
+                tmp_user = User.objects.get(username=i)
+
+                if students.filter(user =tmp_user).exists() == False :
+                    registration.objects.create(course=pk_course,user = tmp_user  ) 
             return redirect('student_view',pk=pk_course.pk )
     else: 
         form = StudentAddForm()
