@@ -17,19 +17,19 @@ def welcome(request):
         
     return render(request,'welcome.html')
 
-@login_required(login_url='/')
+@login_required 
 def home(request):
     user = request.user
     courses = user.registration.all()
     return render(request,'home.html',{'courses':courses } ) 
 
-@login_required(login_url='/')
+@login_required 
 def course_view(request,pk):
     pk_course =get_object_or_404(course,pk=pk )
  
     return render(request,'course_view.html',{'pk_course':pk_course } ) 
 
-@login_required(login_url='/')
+@login_required 
 def lecture_view(request,pk):
     pk_lecture = lecture.objects.get(pk=pk ) 
     posts = pk_lecture.posts.all()
@@ -51,7 +51,7 @@ def lecture_view(request,pk):
  
     return render(request,'lecture_view.html',{'pk_lecture':pk_lecture ,'form':form,'posts':posts } ) 
 
-@login_required(login_url='/')
+@login_required 
 def new_lecture(request,pk):
 
     if isok(request,0):
@@ -72,7 +72,7 @@ def new_lecture(request,pk):
             return render(request, 'new_lecture.html',{'pk_course':courseS,'form':form } ) 
     return render(request, 'new_lecture.html',{'pk_course':courseS,'form':NewLectureForm() } )     
 
-@login_required(login_url='/')
+@login_required 
 def new_course(request):
 
     if isok(request,0):
@@ -94,7 +94,7 @@ def new_course(request):
         form = NewCourseForm()
     return render(request, 'new_course.html',{'form':form } )   
 
-@login_required(login_url='/')
+@login_required 
 def student_view(request,pk):
     if isok(request,0):
         return redirect('home')
@@ -103,7 +103,7 @@ def student_view(request,pk):
  
     return render(request,'student_view.html',{'pk_course':pk_course } ) 
 
-@login_required(login_url='/')
+@login_required 
 def add_student(request,pk):
 
     if isok(request,0):
