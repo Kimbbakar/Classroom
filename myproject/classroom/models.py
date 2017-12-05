@@ -7,7 +7,7 @@ from datetime import datetime
 
 class course(models.Model):
     course_id = models.CharField(max_length=10,  primary_key=True)
-    course_name = models.CharField(max_length=30)
+    course_name = models.CharField(max_length=50)
     faculty = models.ForeignKey(User, related_name='courses', default= 'Admin' )
     semester = models.CharField(max_length=10)
 
@@ -32,3 +32,12 @@ class post(models.Model):
     lecture = models.ForeignKey(lecture,related_name = 'posts' )
     comment = models.CharField(max_length=100)
     date = models.DateField(default=date.today)  
+
+class exam(models.Model):
+    exam_name = models.CharField(max_length=50)    
+    instructor = models.ForeignKey(User,related_name = 'exams')
+    total_score = models.IntegerField()
+
+class grade(models.Model):
+    student = models.ForeignKey(User,related_name = 'grade')    
+    score = models.IntegerField()    
