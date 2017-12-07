@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import lecture,course,registration,post
 from datetime import date
-from .forms import NewLectureForm,NewCourseForm,StudentAddForm,PostCommentForm
+from .forms import NewLectureForm,NewCourseForm,StudentAddForm,PostCommentForm,GradeSubmissionForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -148,3 +148,28 @@ def add_student(request,pk):
     else: 
         form = StudentAddForm()
     return render(request, 'add_student.html',{'pk_course':pk_course, 'form':form } )  
+
+
+def test_view(request,pk):
+
+    if isok(request,0):
+        return redirect('home')
+ 
+    pk_course = course.objects.get(pk=pk )  
+
+    if pk_course.registration.filter(user=request.user).exists()==False:
+        return redirect('home')
+
+    tests = pk_course.test.all()
+
+    return render(request,'test_view.html', {'pk_course':pk_course,'tests':tests } ) 
+
+# def add_exam(request):
+
+#     if request.method == 'POST':
+#         forms = request.POST
+
+#         print (len(forms) )
+
+#     forms = {GradeSubmissionForm(),GradeSubmissionForm()}
+#     return render(request, 'exam_view.html',{ 'forms':forms } )  

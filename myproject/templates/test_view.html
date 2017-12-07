@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active"><a href ="{% url 'home' %}" >Home</a> </li>
+  <li class="breadcrumb-item active"><a href ="{% url 'course_view' pk_course.pk %}" >{{pk_course.course_id }}</a></li>
+  <li class="breadcrumb-item active"><a href ="{% url 'test_view' pk_course.pk %}" >Test</a></li>
+{% endblock %}
+
+{% block content %}
+
+<section>   
+  <table class="table">
+
+    <thead class="thead-inverse">
+      <tr>
+        <th>Test</th>
+        <th>Total Score</th>
+      </tr>
+    </thead>
+
+    <tbody>
+ 
+      {% for test in tests%}
+        <tr>
+          <td> <a href="#">{{test.test_name}} </a> </td>
+        </tr>
+
+        <tr>
+          <td> {{test.total_score}}  </td>
+        </tr>
+
+
+      {% endfor %}
+    </tbody>
+
+  </table>
+   
+
+
+{% endblock %}
