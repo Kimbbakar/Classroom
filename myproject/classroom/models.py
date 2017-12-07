@@ -33,11 +33,12 @@ class post(models.Model):
     comment = models.CharField(max_length=100)
     date = models.DateField(default=date.today)  
 
-class exam(models.Model):
-    exam_name = models.CharField(max_length=50)    
-    instructor = models.ForeignKey(User,related_name = 'exams')
+class test(models.Model):
+    test_name = models.CharField(max_length=50)    
+    course = models.ForeignKey(course,related_name = 'test')
     total_score = models.IntegerField()
 
 class grade(models.Model):
     student = models.ForeignKey(User,related_name = 'grade')    
+    test = models.ForeignKey(test,related_name = 'grade', default= '-123')
     score = models.IntegerField()    
