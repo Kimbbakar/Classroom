@@ -9,8 +9,12 @@
 
 {% block content %}
 
-<section>   
-  <table class="table">
+  <div class="mb-4">
+    <a href="{% url 'new_test' pk_course.pk %}" class="btn btn-primary">New Test</a>
+  </div> 
+
+<section>    
+  <table class="table table-bordered table-striped table-highlight">
 
     <thead class="thead-inverse">
       <tr>
@@ -23,19 +27,15 @@
  
       {% for test in tests%}
         <tr>
-          <td> <a href="#">{{test.test_name}} </a> </td>
-        </tr>
-
-        <tr>
-          <td> {{test.total_score}}  </td>
+          <td class="align-middle" > <a href="#">{{test.test_name}} </a> </td>
+      
+          <td class="align-middle" > {{test.total_score}}  </td>
         </tr>
 
 
       {% endfor %}
     </tbody>
 
-  </table>
-   
-
+  </table> 
 
 {% endblock %}
