@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import lecture,course,registration,post
+from .models import lecture,course,registration,post,test,grade
 from datetime import date
-from .forms import NewLectureForm,NewCourseForm,StudentAddForm,PostCommentForm,GradeSubmissionForm
+from .forms import NewLectureForm,NewCourseForm,StudentAddForm,PostCommentForm 
 from django.contrib.auth.decorators import login_required
 
 
@@ -164,12 +164,32 @@ def test_view(request,pk):
 
     return render(request,'test_view.html', {'pk_course':pk_course,'tests':tests } ) 
 
-# def add_exam(request):
+def new_test(request,pk):
 
-#     if request.method == 'POST':
-#         forms = request.POST
+    if isok(request,0):
+        return redirect('home')
+ 
+    pk_course = course.objects.get(pk=pk )  
 
-#         print (len(forms) )
+    if pk_course.registration.filter(user=request.user).exists()==False:
+        return redirect('home')
+  
 
-#     forms = {GradeSubmissionForm(),GradeSubmissionForm()}
-#     return render(request, 'exam_view.html',{ 'forms':forms } )  
+    students = list()
+
+    for student in pk_course.registration.all():
+        if student.user.type.role == 0:
+            students.append(student.user ) 
+
+    if request.method=='POST':
+        pk_test = test.objects.create(test_name = request.POST['test'], course = pk_course,total_score = request.POST['score'] )
+
+        for student in students:
+            grade(student = student,test = pk_test,score = request.POST[str(student.username)] )
+            print (request.POST.get(  str(student.username) )  )
+
+        return redirect('test_view',pk)
+    return render(request,'new_test.html',{'pk_course':pk_course,'students':students  } )
+
+
+

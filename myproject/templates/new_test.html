@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block stylesheet %}
+<style >
+input.form-control {
+  width: auto;
+}
+
+</style>
+{% endblock %}
+
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active"><a href ="{% url 'home' %}" >Home</a></li>
+  <li class="breadcrumb-item active"><a href ="{% url 'course_view' pk_course.pk %}" >{{pk_course.course_id}}</a></li>
+  <li class="breadcrumb-item active"><a href ="{% url 'test_view' pk_course.pk %}" >Test</a></li>
+  <li class="breadcrumb-item active">New Test</li>
+{% endblock %}
+
+{% block content %} 
+
+  <form method="post">
+    <div class="form-group">
+      <label>Test Name</label>
+      <input type="text" class="form-control" name = "test"  size="50" >
+
+      <label>Max Score</label>
+      <input type="text" class="form-control" name = "score"  size="4" >
+
+    </div>
+
+
+
+  <div class = "table-responsive"> 
+    <table class="table table-bordered table-striped table-highlight">
+      <thead class="thead-inverse">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+
+          {% csrf_token %} 
+          {% for student in students%}
+        
+          <tr>
+
+            <div class="form-group">
+              <td class="align-middle" >
+                <h6> {{student.username }} </h6>  
+              </td>
+
+
+              <td class="align-middle" >
+                <h6> {{student.get_full_name }} </h6>  
+              </td>
+
+              <td class="align-middle" >
+                <input type="text" class="form-control" name =  {{student.username}} maxlength="3" size="3" >
+              </td>
+            </div>
+
+
+          {% endfor %}
+          </tr>
+
+     
+      </tbody>
+    </table>
+    </div> 
+    <button type="submit" class="btn btn-success">Post</button>
+
+  </form> 
+    
+
+    
+
+   
+
+
+
+
+{% endblock %}
