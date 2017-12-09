@@ -150,6 +150,7 @@ def add_student(request,pk):
     return render(request, 'add_student.html',{'pk_course':pk_course, 'form':form } )  
 
 
+@login_required 
 def test_view(request,pk):
 
     if isok(request,0):
@@ -164,6 +165,7 @@ def test_view(request,pk):
 
     return render(request,'test_view.html', {'pk_course':pk_course,'tests':tests } ) 
 
+@login_required 
 def new_test(request,pk):
 
     if isok(request,0):
