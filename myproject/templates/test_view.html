@@ -10,7 +10,9 @@
 {% block content %}
 
   <div class="mb-4">
-    <a href="{% url 'new_test' pk_course.pk %}" class="btn btn-primary">New Test</a>
+    {% if user.type.role == 1 %}
+      <a href="{% url 'new_test' pk_course.pk %}" class="btn btn-primary">New Test</a>
+    {% endif %}
   </div> 
 
 <section>    
