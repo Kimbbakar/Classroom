@@ -27,7 +27,7 @@ def home(request):
 def course_view(request,pk):
     pk_course =get_object_or_404(course,pk=pk )
 
-    if pk_course.registration.filter(user=request.user).exists()==False:
+    if pk_course.faculty!=request.user:
         return redirect('home')
  
     return render(request,'course_view.html',{'pk_course':pk_course } ) 
@@ -37,7 +37,7 @@ def lecture_view(request,pk):
     pk_lecture = lecture.objects.get(pk=pk ) 
     posts = pk_lecture.posts.all()
 
-    if pk_lecture.course.registration.filter(user=request.user).exists()==False:
+    if pk_lecture.course.faculty!=request.user:
         return redirect('home')
  
 
@@ -65,7 +65,7 @@ def new_lecture(request,pk):
 
     courseS = course.objects.get(pk = pk)
 
-    if courseS.registration.filter(user=request.user).exists()==False:
+    if courseS.faculty!=request.user:
         return redirect('home')
 
 
@@ -111,7 +111,7 @@ def student_view(request,pk):
 
     pk_course = course.objects.get(pk=pk ) 
 
-    if pk_course.registration.filter(user=request.user).exists()==False:
+    if pk_course.faculty!=request.user :
         return redirect('home')
  
     return render(request,'student_view.html',{'pk_course':pk_course } ) 
@@ -124,7 +124,7 @@ def add_student(request,pk):
  
     pk_course = course.objects.get(pk=pk )  
 
-    if pk_course.registration.filter(user=request.user).exists()==False:
+    if pk_course.faculty!=request.user:
         return redirect('home')
 
     students = pk_course.registration.all()
@@ -158,7 +158,7 @@ def test_view(request,pk):
  
     pk_course = course.objects.get(pk=pk )  
 
-    if pk_course.registration.filter(user=request.user).exists()==False:
+    if pk_course.faculty!=request.user:
         return redirect('home')
 
     tests = pk_course.test.all()
@@ -173,7 +173,7 @@ def new_test(request,pk):
  
     pk_course = course.objects.get(pk=pk )  
 
-    if pk_course.registration.filter(user=request.user).exists()==False:
+    if pk_course.faculty!=request.user:
         return redirect('home')
   
 
