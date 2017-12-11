@@ -37,6 +37,7 @@ class test(models.Model):
     test_name = models.CharField(max_length=50)    
     course = models.ForeignKey(course,related_name = 'test')
     total_score = models.IntegerField()
+    date = models.DateField(default=date.today)  
 
 class grade(models.Model):
     student = models.ForeignKey(User,related_name = 'grade')    

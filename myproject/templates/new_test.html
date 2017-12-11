@@ -17,7 +17,7 @@ input.form-control {
   <li class="breadcrumb-item active"><a href ="{% url 'test_view' pk_course.pk %}" >Test</a></li>
   <li class="breadcrumb-item active">New Test</li>
 {% endblock %}
-
+ 
 {% block content %} 
 
   <form method="post">
@@ -26,7 +26,10 @@ input.form-control {
       <input type="text" class="form-control" name = "test"  size="50" >
 
       <label>Max Score</label>
-      <input type="text" class="form-control" name = "score"  size="4" >
+      <input type="text" class="form-control" name = "score"  size="4" value = 0 >
+
+      <label>Date</label>
+      <input type="date"  class="form-control" name = "date" value = {{date}} >
 
     </div>
 
@@ -59,7 +62,7 @@ input.form-control {
               </td>
 
               <td class="align-middle" >
-                <input type="text" class="form-control" name =  {{student.username}} maxlength="3" size="3" >
+                <input type="text" class="form-control" name =  {{student.username}} maxlength="3" size="3" value = 0 >
               </td>
             </div>
 

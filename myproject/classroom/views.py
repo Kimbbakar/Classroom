@@ -184,14 +184,15 @@ def new_test(request,pk):
             students.append(student.user ) 
 
     if request.method=='POST':
-        pk_test = test.objects.create(test_name = request.POST['test'], course = pk_course,total_score = request.POST['score'] )
+        pk_test = test.objects.create(test_name = request.POST['test'], course = pk_course,total_score = request.POST['score'],date=request.POST['date'] )
 
         for student in students:
             grade(student = student,test = pk_test,score = request.POST[str(student.username)] )
             print (request.POST.get(  str(student.username) )  )
 
         return redirect('test_view',pk)
-    return render(request,'new_test.html',{'pk_course':pk_course,'students':students  } )
+
+    return render(request,'new_test.html',{'pk_course':pk_course,'students':students,'date':str(date.today())  } )
 
 
 

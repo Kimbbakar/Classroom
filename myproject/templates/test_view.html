@@ -20,6 +20,7 @@
       <tr>
         <th>Test</th>
         <th>Total Score</th>
+        <th>Date</th>
       </tr>
     </thead>
 
@@ -27,9 +28,10 @@
  
       {% for test in tests%}
         <tr>
-          <td class="align-middle" > <a href="#">{{test.test_name}} </a> </td>
-      
+          <td class="align-middle" > <a href="#">{{test.test_name}} </a> </td>      
           <td class="align-middle" > {{test.total_score}}  </td>
+          <td class="align-middle" > {{test.date}}  </td>
+
         </tr>
 
 
