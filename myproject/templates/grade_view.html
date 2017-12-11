@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block stylesheet %}
+<style >
+input.form-control {
+  width: auto;
+}
+
+</style>
+{% endblock %}
+
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active"><a href ="{% url 'home' %}" >Home</a> </li>
+  <li class="breadcrumb-item active"><a href ="{% url 'course_view' pk_test.course.pk %}" >{{pk_test.course.course_id }}</a></li>
+  <li class="breadcrumb-item active"><a href ="{% url 'test_view' pk_test.pk %}" >Test</a></li>
+{% endblock %}
+ 
+{% block content %} 
+
+  <ul>
+    <li><p><strong>Test Name: </strong> {{ pk_test.test_name }}</p></li>
+    <li><p><strong>Total Score: </strong> {{ pk_test.total_score }}</p></li>
+    <li><p><strong>Date: </strong> {{ pk_test.date }}</p></li>
+  </ul>
+
+
+
+  <div class = "table-responsive"> 
+    <table class="table table-bordered table-striped table-highlight">
+      <thead class="thead-inverse">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+
+          {% csrf_token %} 
+          {% for grade in grades%}
+        
+          <tr>
+ 
+              <td class="align-middle" >
+                <h6> {{grade.student.username }} </h6>  
+              </td>
+
+
+              <td class="align-middle" >
+                <h6> {{grade.student.get_full_name }} </h6>  
+              </td>
+
+              <td class="align-middle" >  
+                    <h6> {{grade.score }} </h6>  
+              </td>
+
+          {% endfor %}
+          </tr>
+
+     
+      </tbody>
+    </table>
+    </div>  
+
+    
+
+   
+
+
+
+
+{% endblock %}

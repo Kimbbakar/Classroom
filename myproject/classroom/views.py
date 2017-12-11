@@ -151,8 +151,7 @@ def add_student(request,pk):
 
 
 @login_required 
-def test_view(request,pk):
- 
+def test_view(request,pk): 
  
     pk_course = course.objects.get(pk=pk )  
 
@@ -184,10 +183,8 @@ def new_test(request,pk):
 
     if request.method=='POST':
         pk_test = test.objects.create(test_name = request.POST['test'], course = pk_course,total_score = request.POST['score'],date=request.POST['date'] )
-
         for student in students:
-            grade(student = student,test = pk_test,score = request.POST[str(student.username)] )
-            print (request.POST.get(  str(student.username) )  )
+            grade.objects.create(student = student,test = pk_test,score = request.POST[str(student.username)] )
 
         return redirect('test_view',pk)
 
@@ -195,3 +192,13 @@ def new_test(request,pk):
 
 
 
+@login_required 
+def grade_view(request,pk):
+
+    pk_test = test.objects.get(pk=pk )  
+
+    if pk_test.course.registration.filter(user = request.user ) ==False:
+        return redirect('home')
+
+    grades = pk_test.grade.all()
+    return render(request,'grade_view.html', {'pk_test':pk_test,'grades':grades } ) 

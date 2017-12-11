@@ -30,7 +30,7 @@
  
       {% for test in tests%}
         <tr>
-          <td class="align-middle" > <a href="#">{{test.test_name}} </a> </td>      
+          <td class="align-middle" > <a href ="{% url 'grade_view' test.pk %}" >{{test.test_name}} </a> </td>      
           <td class="align-middle" > {{test.total_score}}  </td>
           <td class="align-middle" > {{test.date}}  </td>
 
