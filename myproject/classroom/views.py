@@ -37,7 +37,7 @@ def lecture_view(request,pk):
     pk_lecture = lecture.objects.get(pk=pk ) 
     posts = pk_lecture.posts.all()
 
-    if pk_course.registration.filter(user = request.user ) ==False:
+    if pk_lecture.course.registration.filter(user = request.user ) ==False:
         return redirect('home')
  
 
