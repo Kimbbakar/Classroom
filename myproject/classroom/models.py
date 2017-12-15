@@ -6,10 +6,10 @@ from datetime import datetime
 # Create your models here.
 
 class course(models.Model):
-    course_id = models.CharField(max_length=10,  primary_key=True)
-    course_name = models.CharField(max_length=50)
+    course_id = models.CharField(max_length=20,  primary_key=True)
+    course_name = models.CharField(max_length=100)
     faculty = models.ForeignKey(User, related_name='courses', default= 'Admin' )
-    semester = models.CharField(max_length=10)
+    semester = models.CharField(max_length=20)
 
 
 class user_type(models.Model):
