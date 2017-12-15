@@ -25,8 +25,8 @@ SEMESTER = [('Fall','Fall'),('Summer','Summer'),('Spring','Spring')]
 
 
 class NewCourseForm(forms.ModelForm):
-    course_id = forms.CharField(max_length=10,help_text='Section number should be mentioned. e.g. EEE123.1')
-    course_name = forms.CharField(max_length=30)    
+    course_id = forms.CharField(max_length=20,help_text='Section number should be mentioned. e.g. EEE123.1')
+    course_name = forms.CharField(max_length=100)    
     semester = forms.ChoiceField(choices=SEMESTER) 
 
     class Meta:
